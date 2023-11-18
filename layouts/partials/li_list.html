@@ -5,6 +5,7 @@
 {{ $icon := "fa-file-alt" }}
 {{ $show_authors := false }}
 {{ $show_buttons := false }}
+{{ $show_venue := false }}
 {{ $link := $item.RelPermalink }}
 {{ $target := "" }}
 {{ if $item.Params.external_link }}
@@ -23,6 +24,7 @@
   {{ $microdata_type = "ScholarlyArticle" }}
   {{ $show_authors = true }}
   {{ $show_buttons = true }}
+  {{ $show_venue = true }}
 {{ else if eq $item.Type "project" }}
   {{ $microdata_type = "CreativeWork" }}
   {{ $icon_pack = "fas" }}
@@ -51,6 +53,10 @@
   <div class="article-metadata" itemprop="author">
     {{ partial "page_metadata_authors" $item }}
   </div>
+  {{ end }}
+
+  {{ if and $show_venue $item.Params.publication_short }}
+  <strong> {{ $item.Params.publication_short }} </strong>
   {{ end }}
 
   {{ if $show_buttons }}
